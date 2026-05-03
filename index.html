@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khan Hair Center | Премиальная пересадка волос V4</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Центр пересадки волос в Астане. Метод FUE и DHI, пожизненная гарантия, личный контроль основателя.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --clinic-accent: #3b82f6; /* Modern Blue instead of generic Gold */
+            --clinic-dark: #000000;
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #000000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-strong {
+            background: rgba(10, 15, 30, 0.7);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        /* Buttons */
+        .btn-apple {
+            background: white;
+            color: black;
+            padding: 18px 36px;
+            border-radius: 99px;
+            font-weight: 700;
+            font-size: 17px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-apple:active { transform: scale(0.96); }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 18px 36px;
+            border-radius: 99px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Language Switcher */
+        .lang-switch {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 99px;
+            padding: 4px;
+            display: flex;
+            gap: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: white;
+            color: black;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--clinic-accent);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        
+        /* Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slider-container {
+            position: relative;
+            aspect-ratio: 16/11;
+            border-radius: 2.5rem;
+            overflow: hidden;
+            cursor: ew-resize;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Nav -->
+    <header class="fixed top-0 left-0 right-0 z-50 px-4 pt-6 pointer-events-none">
+        <nav class="max-w-4xl mx-auto glass rounded-[2.5rem] px-6 h-16 flex items-center justify-between pointer-events-auto shadow-2xl">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-sm shadow-lg shadow-blue-600/30">K</div>
+                <span class="font-extrabold tracking-tight text-lg">Khan <span class="text-white/40">Hair</span></span>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="lang-switch">
+                    <button onclick="setLanguage('ru')" id="btn-ru" class="lang-btn active">RU</button>
+                    <button onclick="setLanguage('kz')" id="btn-kz" class="lang-btn">KZ</button>
+                </div>
+                <a href="#quiz" class="hidden md:flex btn-apple px-6 py-2 text-sm h-10">
+                    <span data-t="nav.booking">Записаться</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-44 pb-32 px-6 flex flex-col items-center justify-center text-center overflow-hidden min-h-[80vh]">
+        <!-- Animated Background Blobs -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-blue-600/10 rounded-full blur-[120px] -z-10 animate-pulse"></div>
+        
+        <div class="fade-up visible">
+            <span class="eyebrow" data-t="hero.tagline">5 лет опыта · 1284 операции</span>
+            <h1 class="text-[48px] md:text-[90px] font-black leading-[1] tracking-tighter mb-8 max-w-5xl">
+                <span class="bg-gradient-to-b from-white to-white/50 bg-clip-text text-transparent" data-t="hero.title_part1">Верните себе</span><br>
+                <span class="text-white" data-t="hero.title_part2">уверенность</span>
+            </h1>
+            
+            <p class="max-w-2xl text-[18px] md:text-[24px] text-white/50 leading-relaxed mb-12 text-balance" data-t="hero.desc">
+                Премиальная пересадка волос в Астане. Швейцарские микро-инструменты, личный контроль основателя и пожизненная гарантия в договоре.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto px-6">
+                <button onclick="openQuiz()" class="btn-apple w-full sm:w-auto h-18 text-lg px-12 shadow-white/10">
+                    <span data-t="hero.cta">Начать трансформацию</span>
+                </button>
+                <a href="#comparison" class="btn-glass w-full sm:w-auto h-18 text-lg px-12" data-t="nav.comparison">
+                    Почему Khan Hair?
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bento Trust Grid -->
+    <section class="py-24 px-6">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+            <!-- Stats -->
+            <div class="md:col-span-2 glass p-10 rounded-[3rem] flex flex-col justify-between fade-up">
+                <div class="w-12 h-12 bg-blue-600/10 rounded-2xl flex items-center justify-center text-blue-500 mb-12">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3.005 3.005 0 013.75-2.906z"/></svg>
+                </div>
+                <div>
+                    <div class="text-5xl font-black mb-4">1284+</div>
+                    <p class="text-white/40 text-lg leading-relaxed" data-t="bento.ops">Счастливых пациентов, которые снова гордятся своей прической за 5 лет работы.</p>
+                </div>
+            </div>
+
+            <!-- Turkey Alternative -->
+            <div class="md:col-span-2 glass p-10 rounded-[3rem] flex flex-col justify-between border-blue-600/20 fade-up">
+                <div class="flex items-center gap-2 text-blue-500 mb-12">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-xs font-black uppercase tracking-widest" data-t="bento.choice_tag">Выбор Астаны</span>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold mb-4" data-t="bento.choice_title">300+ человек</div>
+                    <p class="text-white/40 text-lg leading-relaxed" data-t="bento.choice_desc">Выбрали нас вместо поездки в Турцию в этом году. Качество выше, поддержка — рядом.</p>
+                </div>
+            </div>
+
+            <!-- Micro-tools -->
+            <div class="glass p-8 rounded-[3rem] text-center fade-up">
+                <div class="text-4xl font-black mb-2">0.6мм</div>
+                <p class="text-xs font-bold uppercase tracking-widest text-white/30" data-t="bento.micro">Микро-инструменты</p>
+            </div>
+            
+            <div class="glass p-8 rounded-[3rem] text-center fade-up">
+                <div class="text-4xl font-black mb-2">98%</div>
+                <p class="text-xs font-bold uppercase tracking-widest text-white/30" data-t="bento.survival">Приживаемость</p>
+            </div>
+
+            <!-- Installments -->
+            <div class="md:col-span-2 glass p-10 rounded-[3rem] flex items-center gap-8 fade-up">
+                <div class="w-20 h-20 bg-emerald-500/10 rounded-[2rem] flex items-center justify-center text-emerald-500">
+                    <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM5 12a1 1 0 112 0 1 1 0 01-2 0zm7 0a1 1 0 112 0 1 1 0 01-2 0z"/></svg>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold mb-1" data-t="bento.credit_title">Рассрочка 0%</div>
+                    <p class="text-white/40" data-t="bento.credit_desc">Оплата частями до 24 месяцев через Kaspi и Halyk.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table (iPhone style) -->
+    <section id="comparison" class="py-24 px-6 bg-white/[0.02]">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <span class="eyebrow" data-t="comp.eyebrow">Честное сравнение</span>
+                <h2 class="text-3xl md:text-6xl font-black mb-8" data-t="comp.title">Почему не Турция?</h2>
+                <p class="text-white/50 text-xl max-w-3xl mx-auto" data-t="comp.desc">Разбираем главные мифы о пересадке волос за границей и объясняем, почему Khan Hair — это другой уровень ответственности.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="comp-grid">
+                <!-- Comparison cards populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Timeline -->
+    <section id="process" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20 fade-up">
+                <span class="eyebrow" data-t="proc.eyebrow">Процедура</span>
+                <h2 class="text-3xl md:text-6xl font-black" data-t="proc.title">Один день в клинике.</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6" id="proc-grid">
+                <!-- Process steps populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Results (Single Case + Focus) -->
+    <section id="results" class="py-24 px-6 bg-white/[0.02]">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <span class="eyebrow" data-t="res.eyebrow">Результаты</span>
+                <h2 class="text-3xl md:text-6xl font-black" data-t="res.title">Трансформация</h2>
+            </div>
+
+            <div class="glass-strong p-6 md:p-10 rounded-[4rem] fade-up">
+                <div class="slider-container" id="main-slider" 
+                     onmousemove="handleSlider(event, 'main-slider')" 
+                     onmousedown="startSliding(event)" 
+                     onmouseup="stopSliding()" 
+                     onmouseleave="stopSliding()"
+                     ontouchmove="handleSlider(event, 'main-slider')"
+                     ontouchstart="startSliding(event)"
+                     ontouchend="stopSliding()">
+                    
+                    <img src="./images/case_v2_after.png" class="absolute inset-0 w-full h-full object-cover">
+                    <div id="before-wrap" class="absolute inset-0 w-full h-full overflow-hidden" style="clip-path: inset(0 50% 0 0)">
+                        <img src="./images/case_v2_before.png" class="absolute inset-0 w-full h-full object-cover">
+                    </div>
+                    
+                    <div id="slider-handle" class="absolute top-0 bottom-0 w-px bg-white/50 z-10" style="left: 50%">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full glass border border-white/20 flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M8 9l-4 4 4 4m8-11l4 4-4 4"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 text-center">
+                    <div class="text-blue-500 font-bold uppercase tracking-[0.2em] text-xs mb-4">DHI · 4500 графтов</div>
+                    <h3 class="text-3xl font-bold mb-4" data-t="res.case_title">Трансформация за 12 месяцев</h3>
+                    <p class="text-white/40 text-lg max-w-2xl mx-auto leading-relaxed" data-t="res.case_desc">Восстановление густоты и естественной линии роста. Тот же человек, новый взгляд на жизнь.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies (FUE vs DHI) -->
+    <section id="tech" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <span class="eyebrow" data-t="tech.eyebrow">Технологии</span>
+                <h2 class="text-3xl md:text-6xl font-black" data-t="tech.title">Ювелирная точность</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="tech-grid">
+                <!-- Tech cards populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder -->
+    <section id="founder" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto glass p-10 md:p-20 rounded-[4rem] flex flex-col lg:flex-row items-center gap-16 fade-up">
+            <div class="lg:w-1/2 relative group">
+                <div class="absolute -inset-4 bg-blue-600/10 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-all"></div>
+                <img src="./images/founder.png" class="relative rounded-[2.5rem] w-full aspect-[4/5] object-cover border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
+                <div class="absolute bottom-8 left-8 right-8 glass p-6 rounded-3xl">
+                    <h4 class="text-2xl font-black">Аманжол О.</h4>
+                    <p class="text-blue-500 font-bold text-xs uppercase tracking-widest mt-1" data-t="found.role">Главный врач · Основатель</p>
+                </div>
+            </div>
+            <div class="lg:w-1/2">
+                <span class="eyebrow" data-t="found.eyebrow">Основатель клиники</span>
+                <h3 class="text-4xl md:text-6xl font-black mb-8 leading-tight" data-t="found.title">Личный контроль каждого процесса</h3>
+                <p class="text-white/50 text-xl leading-relaxed mb-10" data-t="found.desc">
+                    В Khan Hair Center мы не просто делаем пересадки — мы возвращаем уверенность. Я лично провожу операции уже более 5 лет и контролирую работу каждого специалиста.
+                </p>
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <div class="text-3xl font-black mb-1">5+</div>
+                        <p class="text-white/30 text-xs uppercase tracking-widest font-black" data-t="found.stat1">Лет опыта</p>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-black mb-1">100%</div>
+                        <p class="text-white/30 text-xs uppercase tracking-widest font-black" data-t="found.stat2">Гарантия</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-24 px-6 bg-white/[0.01]">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl md:text-6xl font-black" data-t="faq.title">Частые вопросы</h2>
+            </div>
+            <div class="space-y-4" id="faq-list">
+                <!-- FAQ populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-24 px-6 border-t border-white/5 bg-black">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center font-black text-white text-lg">K</div>
+                    <span class="font-extrabold text-2xl tracking-tighter">Khan <span class="text-white/40">Hair</span></span>
+                </div>
+                <p class="text-white/30 max-w-sm leading-relaxed" data-t="foot.desc">Премиальный центр пересадки волос в Астане. Мы возвращаем не просто волосы, а уверенность в себе.</p>
+            </div>
+            
+            <div class="flex gap-4">
+                <a href="#" class="w-14 h-14 glass rounded-full flex items-center justify-center hover:bg-white/10 transition-all">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="#" class="w-14 h-14 glass rounded-full flex items-center justify-center hover:bg-emerald-500/10 transition-all text-emerald-500">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-xl" onclick="closeQuiz()"></div>
+        <div class="relative w-full max-w-xl glass-strong rounded-[3rem] overflow-hidden shadow-2xl">
+            <div class="h-1 w-full bg-white/5">
+                <div id="quiz-progress" class="h-full bg-blue-600 transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <div class="p-8 md:p-12">
+                <button onclick="closeQuiz()" class="absolute top-6 right-6 text-white/40 hover:text-white">✕</button>
+                <div id="quiz-content">
+                    <!-- Steps populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const TRANSLATIONS = {
+            ru: {
+                "nav.booking": "Записаться",
+                "nav.comparison": "Почему Khan Hair?",
+                "hero.tagline": "5 лет опыта · 1284 операции",
+                "hero.title_part1": "Верните себе",
+                "hero.title_part2": "уверенность",
+                "hero.desc": "Премиальная пересадка волос в Астане. Швейцарские микро-инструменты, личный контроль основателя и пожизненная гарантия в договоре.",
+                "hero.cta": "Начать трансформацию",
+                "bento.ops": "Счастливых пациентов, которые снова гордятся своей прической за 5 лет работы.",
+                "bento.choice_tag": "Выбор Астаны",
+                "bento.choice_title": "300+ человек",
+                "bento.choice_desc": "Выбрали нас вместо поездки в Турцию в этом году. Качество выше, поддержка — рядом.",
+                "bento.micro": "Микро-инструменты",
+                "bento.survival": "Приживаемость",
+                "bento.credit_title": "Рассрочка 0%",
+                "bento.credit_desc": "Оплата частями до 24 месяцев через Kaspi и Halyk.",
+                "comp.eyebrow": "Честное сравнение",
+                "comp.title": "Почему не Турция?",
+                "comp.desc": "Разбираем главные мифы о пересадке волос за границей и объясняем, почему Khan Hair — это другой уровень ответственности.",
+                "proc.eyebrow": "Процедура",
+                "proc.title": "Один день в клинике.",
+                "res.eyebrow": "Результаты",
+                "res.title": "Трансформация",
+                "res.case_title": "Трансформация за 12 месяцев",
+                "res.case_desc": "Восстановление густоты и естественной линии роста. Тот же человек, новый взгляд на жизнь.",
+                "tech.eyebrow": "Технологии",
+                "tech.title": "Ювелирная точность",
+                "found.eyebrow": "Основатель клиники",
+                "found.title": "Личный контроль каждого процесса",
+                "found.role": "Главный врач · Основатель",
+                "found.desc": "В Khan Hair Center мы не просто делаем пересадки — мы возвращаем уверенность. Я лично провожу операции уже более 5 лет и контролирую работу каждого специалиста.",
+                "found.stat1": "Лет опыта",
+                "found.stat2": "Гарантия",
+                "faq.title": "Частые вопросы",
+                "foot.desc": "Премиальный центр пересадки волос в Астане. Мы возвращаем не просто волосы, а уверенность в себе."
+            },
+            kz: {
+                "nav.booking": "Жазылу",
+                "nav.comparison": "Неге Khan Hair?",
+                "hero.tagline": "5 жыл тәжірибе · 1284 ота",
+                "hero.title_part1": "Өзіңізге",
+                "hero.title_part2": "сенімділікті қайтарыңыз",
+                "hero.desc": "Астанадағы премиум шаш ауыстыру. Швейцариялық микро-құралдар, негізін қалаушының жеке бақылауы және өмірлік кепілдік.",
+                "hero.cta": "Трансформацияны бастау",
+                "bento.ops": "5 жыл ішінде өз шаш үлгісімен қайта мақтанатын бақытты пациенттер.",
+                "bento.choice_tag": "Астана таңдауы",
+                "bento.choice_title": "300+ адам",
+                "bento.choice_desc": "Осы жылы Түркияға барудың орнына бізді таңдады. Сапасы жоғары, қолдау — жаныңызда.",
+                "bento.micro": "Микро-құралдар",
+                "bento.survival": "Жерсінуі",
+                "bento.credit_title": "Бөліп төлеу 0%",
+                "bento.credit_desc": "Kaspi және Halyk арқылы 24 айға дейін бөліп төлеу.",
+                "comp.eyebrow": "Шынайы салыстыру",
+                "comp.title": "Неге Түркия емес?",
+                "comp.desc": "Шетелде шаш ауыстыру туралы негізгі мифтерді талдап, Khan Hair неге басқа деңгейде екенін түсіндіреміз.",
+                "proc.eyebrow": "Процедура",
+                "proc.title": "Клиникадағы бір күн.",
+                "res.eyebrow": "Нәтижелер",
+                "res.title": "Трансформация",
+                "res.case_title": "12 айдағы трансформация",
+                "res.case_desc": "Тығыздықты және табиғи өсу сызығын қалпына келтіру. Сол адам, өмірге жаңа көзқарас.",
+                "tech.eyebrow": "Технологиялар",
+                "tech.title": "Зергерлік дәлдік",
+                "found.eyebrow": "Клиника негізін қалаушы",
+                "found.title": "Әрбір процесті жеке бақылау",
+                "found.role": "Бас дәрігер · Негізін қалаушы",
+                "found.desc": "Khan Hair Center-де біз тек шаш ауыстырып қана қоймаймыз — біз сенімділікті қайтарамыз. Мен 5 жылдан астам уақыт бойы оталарды жеке өзім жасаймын.",
+                "found.stat1": "Жыл тәжірибе",
+                "found.stat2": "Кепілдік",
+                "faq.title": "Жиі қойылатын сұрақтар",
+                "foot.desc": "Астанадағы премиум шаш ауыстыру орталығы. Біз тек шашты ғана емес, өзіңізге деген сенімділікті қайтарамыз."
+            }
+        };
+
+        const COMP_DATA = {
+            ru: [
+                { title: "Индивидуальный подход", turkey: "Конвейерный метод: до 20 операций в день в одной клинике.", khan: "Основатель клиники лично контролирует каждый этап вашей пересадки." },
+                { title: "Реальная стоимость", turkey: "Дешевле только на бумаге. Добавьте перелет, отель и питание.", khan: "Прозрачная цена «под ключ» без скрытых расходов и стресса от перелетов." },
+                { title: "Сервис и контроль", turkey: "Сложность связи с врачом после возвращения домой.", khan: "Пожизненная поддержка и регулярные осмотры в клинике Астаны." }
+            ],
+            kz: [
+                { title: "Жеке тәсіл", turkey: "Конвейерлік әдіс: бір клиникада күніне 20-ға дейін ота.", khan: "Клиника негізін қалаушы әрбір кезеңді жеке өзі бақылайды." },
+                { title: "Нақты құны", turkey: "Тек қағаз бетінде арзан. Ұшу, қонақ үй және тамақтануды қосыңыз.", khan: "Жасырын шығындарсыз және ұшу стрессінсіз нақты баға." },
+                { title: "Сервис және бақылау", turkey: "Үйге оралғаннан кейін дәрігермен байланысу қиындығы.", khan: "Өмір бойы қолдау және Астана клиникасында тұрақты тексерулер." }
+            ]
+        };
+
+        const PROC_DATA = {
+            ru: [
+                { n: "01", t: "Консультация", d: "Бесплатная диагностика трихоскопом и моделирование." },
+                { n: "02", t: "Анализы", d: "Чек-лист анализов и договор с гарантией." },
+                { n: "03", t: "Операция", d: "FUE / DHI без боли. С перерывами на отдых." },
+                { n: "04", t: "Восстановление", d: "Плановые перевязки и инструкции по уходу." },
+                { n: "05", t: "Результат", d: "Финальный результат через 12 месяцев." }
+            ],
+            kz: [
+                { n: "01", t: "Консультация", d: "Трихоскоппен тегін диагностика және модельдеу." },
+                { n: "02", t: "Анализдер", d: "Анализдер тізімі және кепілдікпен келісімшарт." },
+                { n: "03", t: "Ота", d: "FUE / DHI ауырсынусыз. Демалыс үзілістерімен." },
+                { n: "04", t: "Қалпына келу", d: "Жоспарлы таңғыштар және күту бойынша нұсқаулар." },
+                { n: "05", t: "Нәтиже", d: "12 айдан кейінгі соңғы нәтиже." }
+            ]
+        };
+
+        const TECH_DATA = {
+            ru: [
+                { title: "Sapphire FUE", sub: "Точность сапфира", desc: "Микро-каналы до 0.6 мм. Минимальный отёк и быстрое восстановление.", items: ["До 4500 графтов", "Микро-каналы"] },
+                { title: "DHI · Choi", sub: "Без бритья", desc: "Максимальная плотность через имплантер Choi. Идеально для загущения.", items: ["Choi Implanter", "Макс. плотность"] }
+            ],
+            kz: [
+                { title: "Sapphire FUE", sub: "Сапфир дәлдігі", desc: "0,6 мм-ге дейінгі микро-каналдар. Минималды ісіну және жылдам қалпына келу.", items: ["4500 графтқа дейін", "Микро-каналдар"] },
+                { title: "DHI · Choi", sub: "Қырқусыз", desc: "Choi имплантері арқылы максималды тығыздық. Жиілетуге қолайлы.", items: ["Choi Implanter", "Макс. тығыздық"] }
+            ]
+        };
+
+        const FAQ_DATA = {
+            ru: [
+                { q: "Это больно?", a: "Нет. Используем безыгольную анестезию Comfort-In. Дискомфорт минимален — большинство клиентов спят во время операции." },
+                { q: "Когда виден результат?", a: "Первые волосы через 3 месяца, основная густота — на 6–9, финальный результат — через 12 месяцев." },
+                { q: "Есть ли гарантия?", a: "Да — письменно в договоре. Приживаемость не ниже 95%." }
+            ],
+            kz: [
+                { q: "Ауыр ма?", a: "Жоқ. Comfort-In инесіз анестезиясын қолданамыз. Пациенттердің көбі ота кезінде ұйықтайды." },
+                { q: "Нәтиже қашан көрінеді?", a: "Алғашқы шаштар 3 айдан кейін, негізгі тығыздық — 6-9 айда, соңғы нәтиже — 12 айдан кейін." },
+                { q: "Кепілдік бар ма?", a: "Иә — келісімшартта жазбаша түрде. Жерсінуі 95%-дан төмен емес." }
+            ]
+        };
+
+        const QUIZ_DATA = {
+            ru: {
+                steps: [
+                    { title: "Степень выпадения?", options: ["Начальная", "Залысины", "Сильная", "Макушка"] },
+                    { title: "Когда планируете?", options: ["Срочно", "Месяц", "Полгода"] }
+                ],
+                success: "Бонус закреплен!",
+                btn: "Забрать в WhatsApp"
+            },
+            kz: {
+                steps: [
+                    { title: "Түсу деңгейі?", options: ["Бастапқы", "Маңдай", "Қатты", "Төбесі"] },
+                    { title: "Қашан жоспарлайсыз?", options: ["Шұғыл", "Бір ай", "Жарты жыл"] }
+                ],
+                success: "Бонус бекітілді!",
+                btn: "WhatsApp-тан алу"
+            }
+        };
+
+        let currentLang = 'ru';
+        let isSliding = false;
+        let quizStep = 0;
+        let quizAns = [];
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-t]').forEach(el => {
+                const key = el.getAttribute('data-t');
+                if (TRANSLATIONS[lang][key]) el.innerText = TRANSLATIONS[lang][key];
+            });
+            document.getElementById('btn-ru').classList.toggle('active', lang === 'ru');
+            document.getElementById('btn-kz').classList.toggle('active', lang === 'kz');
+            
+            renderComp();
+            renderProc();
+            renderTech();
+            renderFAQ();
+        }
+
+        function renderComp() {
+            const grid = document.getElementById('comp-grid');
+            grid.innerHTML = COMP_DATA[currentLang].map(item => `
+                <div class="glass p-8 rounded-[3rem] fade-up visible">
+                    <h3 class="text-xl font-bold mb-8">${item.title}</h3>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <span class="text-red-500 font-bold">✕</span>
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-widest text-white/30 mb-1">${currentLang === 'ru' ? 'В Турции' : 'Түркияда'}</p>
+                                <p class="text-white/50 text-sm leading-relaxed">${item.turkey}</p>
+                            </div>
+                        </div>
+                        <div class="h-px bg-white/5 w-full"></div>
+                        <div class="flex gap-4">
+                            <span class="text-blue-500 font-bold">✓</span>
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-widest text-blue-500 mb-1">Khan Hair</p>
+                                <p class="text-white text-sm font-bold leading-relaxed">${item.khan}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderProc() {
+            const grid = document.getElementById('proc-grid');
+            grid.innerHTML = PROC_DATA[currentLang].map(step => `
+                <div class="glass p-8 rounded-[2.5rem] relative group fade-up visible">
+                    <div class="text-4xl font-black text-white/5 absolute -right-2 -top-2">${step.n}</div>
+                    <h4 class="text-lg font-bold mb-2">${step.t}</h4>
+                    <p class="text-white/40 text-xs leading-relaxed">${step.d}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderTech() {
+            const grid = document.getElementById('tech-grid');
+            grid.innerHTML = TECH_DATA[currentLang].map(tech => `
+                <div class="glass p-10 rounded-[3.5rem] border border-white/5 hover:bg-white/[0.05] transition-all fade-up visible">
+                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-blue-500 mb-4 block">${tech.sub}</span>
+                    <h4 class="text-3xl font-bold mb-6">${tech.title}</h4>
+                    <p class="text-white/50 text-lg mb-8 leading-relaxed">${tech.desc}</p>
+                    <div class="flex flex-wrap gap-3">
+                        ${tech.items.map(i => `<span class="px-4 py-2 rounded-full bg-white/5 text-[10px] font-black uppercase tracking-widest">${i}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFAQ() {
+            const list = document.getElementById('faq-list');
+            list.innerHTML = FAQ_DATA[currentLang].map((f, i) => `
+                <div class="glass rounded-[2rem] overflow-hidden">
+                    <button onclick="toggleFAQ(${i})" class="w-full p-8 text-left flex justify-between items-center group">
+                        <span class="font-bold text-lg group-hover:text-blue-400 transition-colors">${f.q}</span>
+                        <div class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center faq-icon-${i}">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                    </button>
+                    <div id="faq-ans-${i}" class="hidden px-8 pb-8 text-white/50 leading-relaxed text-sm">${f.a}</div>
+                </div>
+            `).join('');
+        }
+
+        function toggleFAQ(i) {
+            const el = document.getElementById(`faq-ans-${i}`);
+            const icon = document.querySelector(`.faq-icon-${i}`);
+            const isOpen = !el.classList.contains('hidden');
+            document.querySelectorAll('[id^="faq-ans-"]').forEach(ans => ans.classList.add('hidden'));
+            document.querySelectorAll('[class*="faq-icon-"]').forEach(ic => ic.classList.remove('rotate-180', 'bg-blue-600', 'border-blue-600'));
+            if (!isOpen) { el.classList.remove('hidden'); icon.classList.add('rotate-180', 'bg-blue-600', 'border-blue-600'); }
+        }
+
+        function handleSlider(e, id) {
+            if (!isSliding && e.type !== 'touchstart' && e.type !== 'touchmove') return;
+            const container = document.getElementById(id);
+            const rect = container.getBoundingClientRect();
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            if (!clientX) return;
+            const x = clientX - rect.left;
+            const pct = Math.max(0, Math.min(100, (x / rect.width) * 100));
+            document.getElementById('before-wrap').style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+            document.getElementById('slider-handle').style.left = `${pct}%`;
+        }
+        function startSliding() { isSliding = true; }
+        function stopSliding() { isSliding = false; }
+
+        function openQuiz() { document.getElementById('quiz-modal').classList.remove('opacity-0', 'pointer-events-none'); renderQuiz(); }
+        function closeQuiz() { 
+            document.getElementById('quiz-modal').classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => { quizStep = 0; quizAns = []; }, 300);
+        }
+        function renderQuiz() {
+            const data = QUIZ_DATA[currentLang];
+            const progress = (quizStep / data.steps.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${progress}%`;
+            const container = document.getElementById('quiz-content');
+            if (quizStep < data.steps.length) {
+                const step = data.steps[quizStep];
+                container.innerHTML = `
+                    <span class="text-blue-500 text-[10px] font-black tracking-widest uppercase mb-4 block">Вопрос ${quizStep + 1} / ${data.steps.length}</span>
+                    <h3 class="text-3xl font-black mb-8 text-white">${step.title}</h3>
+                    <div class="space-y-3">
+                        ${step.options.map(opt => `<button onclick="nextQuiz('${opt}')" class="w-full text-left p-6 rounded-2xl border border-white/5 bg-white/5 hover:border-blue-500 font-bold">${opt}</button>`).join('')}
+                    </div>
+                `;
+            } else {
+                document.getElementById('quiz-progress').style.width = "100%";
+                container.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="w-20 h-20 bg-blue-600/10 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-8">✓</div>
+                        <h3 class="text-3xl font-black mb-4">${data.success}</h3>
+                        <a href="https://wa.me/77750000000" target="_blank" class="btn-apple w-full justify-center">${data.btn}</a>
+                    </div>
+                `;
+            }
+        }
+        function nextQuiz(ans) { quizAns.push(ans); quizStep++; renderQuiz(); }
+
+        // Intersection Observer for fade-up
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Init
+        setLanguage('ru');
+    </script>
+</body>
+</html>
